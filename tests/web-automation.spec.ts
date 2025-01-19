@@ -1,8 +1,11 @@
 import {test, expect} from '@playwright/test';
 import {credentials} from './credentials.testData';
 
-test('login', async ({ page }) => {
+test.beforeEach(async ({ page }) => {
     await page.goto('https://www.saucedemo.com/', {waitUntil: 'commit'});
+  });
+ 
+test('login', async ({ page }) => {
     for (const {username, password} of credentials) {
         await expect(page).toHaveTitle('Swag Labs');
 
@@ -28,9 +31,6 @@ test('login', async ({ page }) => {
 });
 
 test('e2e-scenario', async ({ page }) => {
-    // Navigate to target website
-    await page.goto('https://www.saucedemo.com/', {waitUntil: 'commit'});
-
     // Assertion that webpage is correct
     await expect(page).toHaveTitle('Swag Labs');
 
